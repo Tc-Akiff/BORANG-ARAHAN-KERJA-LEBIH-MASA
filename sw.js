@@ -1,19 +1,35 @@
-const CACHE_NAME = 'arahan-kerja-v1';
-const urlsToCache = [
+const CACHE_NAME = 'arahan-kerja-v2';
+const assets = [
   './',
   './index.html',
   './manifest.json',
-  'https://upload.wikimedia.org/wikipedia/commons/1/1a/Coat_of_arms_of_Penang.svg'
+  './jata_penang_new.png'
 ];
 
-self.addEventListener('install', event => {
+self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => cache.addAll(urlsToCache))
+    caches.open(CACHE_NAME).then((cache) => {
+      return cache.addAll(assets);
+    })
   );
+  self.skipWaiting();
 });
 
-self.addEventListener('fetch', event => {
+self.addEventListener('activate', (event) => {
+  event.waitUntil(
+    caches.keys().then((keys) => {
+      return Promise.all(
+        keys.filter((key) => key !== CACHE_NAME).map((key) => caches.delete(key))
+      );
+    })
+  );
+  self.clients.claim();
+});
+
+self.addEventListener('fetch', (event) => {
   event.respondWith(
-    caches.match(event.request).then(response => response || fetch(event.request))
+    caches.match(event.request).then((cachedResponse) => {
+      return cachedResponse || fetch(event.request);
+    })
   );
 });
