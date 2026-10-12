@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Borang Arahan Kerja Lebih Masa - SUK Penang</title>
+  
+  <!-- Manifest Link -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#1e293b">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="ArahanKerja">
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: Arial, Helvetica, sans-serif; }
+    body { background-color: #e5e7eb; height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
+
+    /* HEADER APP */
+    header { background-color: #1e293b; color: white; padding: 0.6rem 1rem; display: flex; justify-content: space-between; align-items: center; z-index: 10; flex-shrink: 0; }
+    header h1 { font-size: 1rem; font-weight: bold; }
+    .btn-pdf { background-color: #16a34a; color: white; border: none; padding: 0.5rem 1rem; font-weight: bold; border-radius: 4px; cursor: pointer; font-size: 0.85rem; }
+    .btn-pdf:hover { background-color: #15803d; }
+
+    /* TAB TOGGLE MOBILE */
+    .mobile-tabs { display: none; background: #ffffff; border-bottom: 1px solid #ccc; flex-shrink: 0; }
+    .tab-btn { flex: 1; padding: 0.6rem; text-align: center; background: none; border: none; font-weight: bold; color: #666; border-bottom: 3px solid transparent; cursor: pointer; }
+    .tab-btn.active { color: #1e293b; border-bottom-color: #1e293b; }
+
+    /* LAYOUT CONTAINER */
+    .app-container { display: flex; flex: 1; overflow: hidden; }
+
+    /* SEBELAH KIRI: BORANG INPUT */
+    .form-section { width: 38%; background: #ffffff; padding: 1.2rem; overflow-y: auto; border-right: 2px solid #cbd5e1; flex-shrink: 0; }
+    .form-group { margin-bottom: 0.8rem; }
+    .form-group label { display: block; font-size: 0.8rem; font-weight: bold; color: #334155; margin-bottom: 0.2rem; }
+    .form-control { width: 100%; padding: 0.4rem 0.5rem; border: 1px solid #94a3b8; border-radius: 4px; font-size: 0.85rem; }
+    .section-title { font-size: 0.85rem; font-weight: bold; background: #cbd5e1; padding: 0.3rem 0.5rem; margin: 1rem 0 0.6rem 0; color: #0f172a; border-left: 4px solid #1e293b; }
+
+    /* DINAMIK PEGAWAI INPUT */
+    .pegawai-input-row { display: flex; gap: 0.4rem; align-items: center; margin-bottom: 0.5rem; }
+    .btn-add-pegawai { background-color: #2563eb; color: white; border: none; padding: 0.4rem 0.8rem; font-weight: bold; border-radius: 4px; cursor: pointer; font-size: 0.8rem; width: 100%; margin-top: 0.2rem; }
+    .btn-add-pegawai:hover { background-color: #1d4ed8; }
+    .btn-del-pegawai { background-color: #dc2626; color: white; border: none; padding: 0.4rem 0.6rem; font-weight: bold; border-radius: 4px; cursor: pointer; font-size: 0.75rem; }
+
+    /* SEBELAH KANAN: LIVE PREVIEW */
+    .preview-section { width: 62%; background: #525659; padding: 2rem 1.5rem; overflow-y: auto; display: flex; justify-content: center; align-items: flex-start; }
+    
+    /* DOKUMEN STANDARD A4 */
+    .page-a4 { background: white; width: 210mm; min-height: 297mm; padding: 15mm 20mm; box-shadow: 0 4px 10px rgba(0,0,0,0.3); font-size: 13px; color: #000; line-height: 1.35; border-radius: 2px; box-sizing: border-box; position: relative; }
+
+    /* STYLES KHAS BORANG SUK PENANG */
+    .header-logo-container { text-align: center; margin-bottom: 0.4rem; }
+    .header-logo-container img { width: 52px; height: auto; }
+    .doc-main-title { text-align: center; font-weight: bold; font-size: 13px; text-transform: uppercase; margin-bottom: 0.8rem; }
+
+    /* JADUAL & KOTAK DOKUMEN */
+    .suk-table { width: 100%; border-collapse: collapse; border: 1.5px solid #000; margin-bottom: -1.5px; page-break-inside: avoid; }
+    .suk-header-cell { background-color: #bfbfbf; font-weight: bold; text-transform: uppercase; padding: 4px 6px; border: 1.5px solid #000; font-size: 12px; }
+    .suk-cell { border: 1px solid #000; padding: 5px 7px; vertical-align: top; font-size: 13px; }
+    
+    .pegawai-list { margin-left: 0; list-style: none; padding-left: 0; }
+    .pegawai-list li { margin-bottom: 3px; font-size: 13px; word-break: break-word; }
+
+    .space-signature { height: 60px; }
+
+    /* RESPONSIVE DESIGN FOR MOBILE & PWA */
+    @media (max-width: 900px) {
+      body { overflow: auto; }
+      .mobile-tabs { display: flex; }
+      .app-container { flex-direction: column; overflow: visible; }
+      .form-section, .preview-section { width: 100%; }
+      .preview-section { padding: 0.5rem; background: #94a3b8; overflow-x: auto; }
+      .page-a4 { width: 100%; min-height: auto; padding: 1rem; }
+      .form-section.hidden, .preview-section.hidden { display: none; }
+    }
+
+    /* PRINT STYLES */
+    @media print {
+      @page { size: A4 portrait; margin: 10mm; }
+      header, .mobile-tabs, .form-section { display: none !important; }
+      body { background: white; overflow: visible; height: auto; }
+      .app-container { display: block; overflow: visible; }
+      .preview-section { width: 100%; padding: 0; background: white; display: block; overflow: visible; }
+      .page-a4 { box-shadow: none; border: none; padding: 0; width: 100%; min-height: auto; }
+      .suk-table { page-break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER APPLIKASI -->
+  <header>
+    <h1>Borang Arahan Kerja Lebih Masa - SUK Penang</h1>
+    <button class="btn-pdf" onclick="window.print()">📄 Muat Turun / Eksport PDF</button>
+  </header>
+
+  <!-- TAB TOGGLE UNTUK MOBILE -->
+  <div class="mobile-tabs">
+    <button class="tab-btn active" id="tab-form" onclick="switchTab('form')">Isi Data</button>
+    <button class="tab-btn" id="tab-preview" onclick="switchTab('preview')">Pratonton PDF</button>
+  </div>
+
+  <div class="app-container">
+
+    <!-- SEBELAH KIRI: BORANG INPUT -->
+    <div class="form-section" id="panel-form">
+      
+      <div class="section-title">BUTIRAN ARAHAN KERJA LEBIH MASA</div>
+      <div class="form-group">
+        <label>Tarikh Bertugas</label>
+        <input type="text" id="in-tarikh-bertugas" class="form-control" value="17.09.2026" oninput="updatePreview()">
+      </div>
+      <div class="form-group">
+        <label>Butiran Tugasan</label>
+        <textarea id="in-butiran-tugasan" class="form-control" rows="3" oninput="updatePreview()">Arahan Kerja Lebih Masa Bagi Bengkel KPI dan Rakaman SeaGames di Zenith Hotel Cameron Highlands</textarea>
+      </div>
+
+      <!-- SEKSYEN SENARAI PEGAWAI -->
+      <div class="section-title">SENARAI NAMA PEGAWAI DIARAHKAN</div>
+      <div id="pegawai-input-container"></div>
+      <button class="btn-add-pegawai" onclick="addPegawaiRow()">+ Tambah Pegawai</button>
+
+      <div class="section-title">BUTIRAN PEGAWAI MENERIMA ARAHAN</div>
+      <div class="form-group">
+        <label>Tarikh Pelaksanaan</label>
+        <input type="text" id="in-tarikh-terima" class="form-control" value="17.09.2026" oninput="updatePreview()">
+      </div>
+      <div class="form-group">
+        <label>Tempoh Masa</label>
+        <input type="text" id="in-tempoh-masa" class="form-control" value="04.30 Petang hingga 10.00 Malam" oninput="updatePreview()">
+      </div>
+
+    </div>
+
+    <!-- SEBELAH KANAN: LIVE PREVIEW PDF -->
+    <div class="preview-section" id="panel-preview">
+      <div class="page-a4">
+        
+        <div style="text-align: center; font-size: 11px; margin-bottom: 2px;">Borang_Arahan</div>
+        
+        <!-- LOGO SUK PENANG -->
+        <div class="header-logo-container">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/1/1a/Coat_of_arms_of_Penang.svg" alt="Coat of Arms Penang">
+        </div>
+
+        <!-- TAJUK UTAMA -->
+        <div class="doc-main-title">
+          BORANG ARAHAN KERJA LEBIH MASA<br>
+          PEJABAT SETIAUSAHA KERAJAAN NEGERI PULAU PINANG
+        </div>
+
+        <!-- SEKSYEN 1 -->
+        <table class="suk-table">
+          <tr>
+            <td class="suk-header-cell" colspan="2">BUTIRAN ARAHAN KERJA LEBIH MASA</td>
+          </tr>
+          <tr>
+            <td class="suk-cell" style="width: 25%;">Tarikh Bertugas</td>
+            <td class="suk-cell" id="out-tarikh-bertugas" style="width: 75%;">17.09.2026</td>
+          </tr>
+          <tr>
+            <td class="suk-cell" style="vertical-align: top;">Butiran Tugasan</td>
+            <td class="suk-cell" id="out-butiran-tugasan" style="vertical-align: top;">Arahan Kerja Lebih Masa Bagi Bengkel KPI dan Rakaman SeaGames di Zenith Hotel Cameron Highlands</td>
+          </tr>
+        </table>
+
+        <!-- SEKSYEN SENARAI NAMA -->
+        <table class="suk-table">
+          <tr>
+            <td class="suk-cell">
+              Senarai Nama Pegawai Diarahkan &nbsp;&nbsp;:
+            </td>
+          </tr>
+          <tr>
+            <td class="suk-cell" style="padding-left: 8px;">
+              <ul class="pegawai-list" id="out-pegawai-list"></ul>
+            </td>
+          </tr>
+        </table>
+
+        <!-- SEKSYEN PEGAWAI MEMBERI ARAHAN -->
+        <table class="suk-table">
+          <tr>
+            <td class="suk-header-cell">BUTIRAN PEGAWAI YANG MEMBERI ARAHAN</td>
+          </tr>
+          <tr>
+            <td class="suk-cell">
+              <div>Tandatangan dan</div>
+              <div>Cop Nama & Jawatan :</div>
+              <div class="space-signature"></div>
+              <div>Tarikh &nbsp;&nbsp;&nbsp;&nbsp;:</div>
+            </td>
+          </tr>
+        </table>
+
+        <!-- SEKSYEN PEGAWAI MENERIMA ARAHAN -->
+        <table class="suk-table">
+          <tr>
+            <td class="suk-header-cell">BUTIRAN PEGAWAI YANG MENERIMA ARAHAN</td>
+          </tr>
+          <tr>
+            <td class="suk-cell">
+              <div style="margin-bottom: 0.2rem;">Saya telah melaksanakan tugas yang diarahkan di atas pada tarikh dan masa seperti berikut :</div>
+              <div style="margin-bottom: 0.1rem;">Tarikh &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:<span id="out-tarikh-terima">17.09.2026</span></div>
+              <div style="margin-bottom: 0.3rem;">Tempoh Masa : <span id="out-tempoh-masa">04.30 Petang hingga 10.00 Malam</span></div>
+              <div>Tandatangan dan</div>
+              <div>Cop Nama & Jawatan :</div>
+              <div class="space-signature"></div>
+            </td>
+          </tr>
+        </table>
+
+        <!-- SEKSYEN PENGESAHAN -->
+        <table class="suk-table">
+          <tr>
+            <td class="suk-header-cell">PENGESAHAN PEGAWAI YANG MEMBERI ARAHAN</td>
+          </tr>
+          <tr>
+            <td class="suk-cell">
+              <div style="margin-bottom: 0.3rem;">Disahkan tugas tersebut telah disempurnakan pada tarikh dan tempoh masa yang dinyatakan :</div>
+              <div>Tandatangan dan</div>
+              <div>Cop Nama & Jawatan :</div>
+              <div class="space-signature"></div>
+              <div>Tarikh &nbsp;&nbsp;&nbsp;&nbsp;:</div>
+            </td>
+          </tr>
+        </table>
+
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    let pegawaiList = ["Muhammad Akiff Azraei Bin Nasri"];
+
+    function renderPegawaiInputs() {
+      const container = document.getElementById('pegawai-input-container');
+      container.innerHTML = '';
+      pegawaiList.forEach((nama, idx) => {
+        const div = document.createElement('div');
+        div.className = 'pegawai-input-row';
+        div.innerHTML = `
+          <div style="flex: 1;">
+            <label style="font-size: 0.75rem; font-weight: bold; color: #475569;">Pegawai ${idx + 1}</label>
+            <input type="text" class="form-control" value="${nama}" placeholder="Nama Pegawai" oninput="updatePegawai(${idx}, this.value)">
+          </div>
+          ${pegawaiList.length > 1 ? `<button class="btn-del-pegawai" style="margin-top: 1rem;" onclick="removePegawaiRow(\${idx})">X</button>` : ''}
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    function addPegawaiRow() {
+      pegawaiList.push("");
+      renderPegawaiInputs();
+      updatePreview();
+    }
+
+    function removePegawaiRow(idx) {
+      if (pegawaiList.length > 1) {
+        pegawaiList.splice(idx, 1);
+        renderPegawaiInputs();
+        updatePreview();
+      }
+    }
+
+    function updatePegawai(idx, value) {
+      pegawaiList[idx] = value;
+      updatePreview();
+    }
+
+    function updatePreview() {
+      document.getElementById('out-tarikh-bertugas').innerText = document.getElementById('in-tarikh-bertugas').value;
+      document.getElementById('out-butiran-tugasan').innerText = document.getElementById('in-butiran-tugasan').value;
+      
+      const outList = document.getElementById('out-pegawai-list');
+      outList.innerHTML = '';
+      pegawaiList.forEach((nama, idx) => {
+        const li = document.createElement('li');
+        li.innerText = `${idx + 1}. ${nama}`;
+        outList.appendChild(li);
+      });
+
+      document.getElementById('out-tarikh-terima').innerText = document.getElementById('in-tarikh-terima').value;
+      document.getElementById('out-tempoh-masa').innerText = document.getElementById('in-tempoh-masa').value;
+    }
+
+    function switchTab(tab) {
+      const formPanel = document.getElementById('panel-form');
+      const previewPanel = document.getElementById('panel-preview');
+      const tabForm = document.getElementById('tab-form');
+      const tabPreview = document.getElementById('tab-preview');
+
+      if (tab === 'form') {
+        formPanel.classList.remove('hidden');
+        previewPanel.classList.add('hidden');
+        tabForm.classList.add('active');
+        tabPreview.classList.remove('active');
+      } else {
+        formPanel.classList.add('hidden');
+        previewPanel.classList.remove('hidden');
+        tabForm.classList.remove('active');
+        tabPreview.classList.add('active');
+      }
+    }
+
+    // DAFTAR SERVICE WORKER PWA
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js')
+          .then(reg => console.log('PWA Service Worker Berjaya:', reg.scope))
+          .catch(err => console.log('Gagal daftar SW:', err));
+      });
+    }
+
+    window.onload = () => {
+      renderPegawaiInputs();
+      updatePreview();
+    };
+  </script>
+</body>
+</html>
