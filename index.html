@@ -5,8 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Borang Arahan Kerja Lebih Masa - SUK Penang</title>
   
+  <!-- MANIFEST & PWA META TAGS -->
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#1e293b">
+  <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="ArahanKerja">
@@ -243,7 +245,6 @@
     let pegawaiList = ["Muhammad Akiff Azraei Bin Nasri"];
     let deferredPrompt;
 
-    // DETECT CHROME INSTALL PROMPT
     window.addEventListener('beforeinstallprompt', (e) => {
       e.preventDefault();
       deferredPrompt = e;
@@ -258,7 +259,7 @@
         deferredPrompt.prompt();
         const { outcome } = await deferredPrompt.userChoice;
         if (outcome === 'accepted') {
-          console.log('User bersetuju install PWA');
+          console.log('Aplikasi berjaya di-install');
         }
         deferredPrompt = null;
         document.getElementById('btn-install-app').style.display = 'none';
@@ -351,8 +352,8 @@
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('sw.js')
-          .then(reg => console.log('PWA Service Worker Berjaya:', reg.scope))
-          .catch(err => console.log('Gagal daftar SW:', err));
+          .then(reg => console.log('PWA SW Berjaya:', reg.scope))
+          .catch(err => console.log('Gagal SW:', err));
       });
     }
 
