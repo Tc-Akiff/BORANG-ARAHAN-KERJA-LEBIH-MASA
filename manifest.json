@@ -1,8 +1,8 @@
 {
   "name": "Borang Arahan Kerja Lebih Masa SUK Penang",
   "short_name": "ArahanKerja",
-  "description": "Sistem Borang Arahan Kerja Lebih Masa SUK Penang",
   "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
   "background_color": "#1e293b",
   "theme_color": "#1e293b",
