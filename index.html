@@ -18,8 +18,13 @@
     /* HEADER APP */
     header { background-color: #1e293b; color: white; padding: 0.6rem 1rem; display: flex; justify-content: space-between; align-items: center; z-index: 10; flex-shrink: 0; }
     header h1 { font-size: 1rem; font-weight: bold; }
-    .btn-pdf { background-color: #16a34a; color: white; border: none; padding: 0.5rem 1rem; font-weight: bold; border-radius: 4px; cursor: pointer; font-size: 0.85rem; }
+    .header-btns { display: flex; gap: 0.5rem; align-items: center; }
+    
+    .btn-pdf { background-color: #16a34a; color: white; border: none; padding: 0.5rem 0.8rem; font-weight: bold; border-radius: 4px; cursor: pointer; font-size: 0.85rem; }
     .btn-pdf:hover { background-color: #15803d; }
+
+    .btn-install { background-color: #2563eb; color: white; border: none; padding: 0.5rem 0.8rem; font-weight: bold; border-radius: 4px; cursor: pointer; font-size: 0.85rem; display: none; }
+    .btn-install:hover { background-color: #1d4ed8; }
 
     /* TAB TOGGLE MOBILE */
     .mobile-tabs { display: none; background: #ffffff; border-bottom: 1px solid #ccc; flex-shrink: 0; }
@@ -92,8 +97,11 @@
 
   <!-- HEADER APPLIKASI -->
   <header>
-    <h1>Borang Arahan Kerja Lebih Masa - SUK Penang</h1>
-    <button class="btn-pdf" type="button" onclick="window.print()">📄 Muat Turun / Eksport PDF</button>
+    <h1>Arahan Kerja SUK Penang</h1>
+    <div class="header-btns">
+      <button class="btn-install" id="btn-install-app" type="button">📲 Install App</button>
+      <button class="btn-pdf" type="button" onclick="window.print()">📄 Eksport PDF</button>
+    </div>
   </header>
 
   <!-- TAB TOGGLE UNTUK MOBILE -->
@@ -233,6 +241,29 @@
 
   <script>
     let pegawaiList = ["Muhammad Akiff Azraei Bin Nasri"];
+    let deferredPrompt;
+
+    // DETECT CHROME INSTALL PROMPT
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      const installBtn = document.getElementById('btn-install-app');
+      if (installBtn) {
+        installBtn.style.display = 'inline-block';
+      }
+    });
+
+    document.getElementById('btn-install-app').addEventListener('click', async () => {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        if (outcome === 'accepted') {
+          console.log('User bersetuju install PWA');
+        }
+        deferredPrompt = null;
+        document.getElementById('btn-install-app').style.display = 'none';
+      }
+    });
 
     function renderPegawaiInputs() {
       const container = document.getElementById('pegawai-input-container');
@@ -259,7 +290,6 @@
         container.appendChild(div);
       });
 
-      // BIND INPUT EVENTS WITHOUT RE-RENDERING HTML
       document.querySelectorAll('.pegawai-field').forEach(input => {
         input.addEventListener('input', (e) => {
           const index = parseInt(e.target.getAttribute('data-index'));
