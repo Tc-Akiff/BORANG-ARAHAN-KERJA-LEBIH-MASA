@@ -62,12 +62,12 @@
     .header-logo-container img { width: 70px; height: auto; display: block; margin: 0 auto; }
     .doc-main-title { text-align: center; font-weight: bold; font-size: 11pt; font-family: Arial, sans-serif; text-transform: uppercase; margin-bottom: 0.6rem; }
 
-    /* JADUAL & KOTAK DOKUMEN - FONT ARIAL SIZE 11pt */
-    .suk-table { width: 100%; border-collapse: collapse; border: 1.5px solid #000; margin-bottom: -1.5px; page-break-inside: avoid; }
+    /* JADUAL & KOTAK DOKUMEN - FIXED TABLE LAYOUT UNTUK ELAK MELEBAR */
+    .suk-table { width: 100%; border-collapse: collapse; border: 1.5px solid #000; margin-bottom: -1.5px; page-break-inside: avoid; table-layout: fixed; }
     
     /* BACKGROUND KELABU KETARA MENGIKUT DOKUMEN RASMI */
-    .suk-header-cell { background-color: #bfbfbf !important; font-weight: bold; font-family: Arial, sans-serif; text-transform: uppercase; padding: 3px 6px; border: 1.5px solid #000; font-size: 11pt; color: #000; }
-    .suk-cell { border: 1px solid #000; padding: 6px 8px; vertical-align: top; font-size: 11pt; font-family: Arial, sans-serif; }
+    .suk-header-cell { background-color: #bfbfbf !important; font-weight: bold; font-family: Arial, sans-serif; text-transform: uppercase; padding: 4px 6px; border: 1.5px solid #000; font-size: 11pt; color: #000; }
+    .suk-cell { border: 1px solid #000; padding: 6px 8px; vertical-align: top; font-size: 11pt; font-family: Arial, sans-serif; word-wrap: break-word; overflow-wrap: break-word; word-break: break-word; white-space: pre-wrap; }
     
     .pegawai-list { margin-left: 0; list-style: none; padding-left: 0; }
     .pegawai-list li { margin-bottom: 3px; font-size: 11pt; font-family: Arial, sans-serif; word-break: break-word; }
@@ -91,7 +91,7 @@
       .app-container { display: block; overflow: visible; }
       .preview-section { width: 100%; padding: 0; background: white; display: block; overflow: visible; }
       .page-a4 { box-shadow: none; border: none; padding: 12mm 18mm; width: 100%; min-height: auto; }
-      .suk-table { page-break-inside: avoid; }
+      .suk-table { page-break-inside: avoid; table-layout: fixed; }
       .suk-header-cell { background-color: #bfbfbf !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
       .header-logo-container img { width: 70px !important; }
     }
@@ -126,7 +126,7 @@
       </div>
       <div class="form-group">
         <label for="in-butiran-tugasan">Butiran Tugasan</label>
-        <textarea id="in-butiran-tugasan" class="form-control" rows="3" oninput="updatePreview()">Arahan Kerja Lebih Masa Bagi Bengkel KPI dan Rakaman SeaGames di Zenith Hotel Cameron Highlands</textarea>
+        <textarea id="in-butiran-tugasan" class="form-control" rows="4" oninput="updatePreview()">Arahan Kerja Lebih Masa Bagi Bengkel KPI dan Rakaman SeaGames di Zenith Hotel Cameron Highlands</textarea>
       </div>
 
       <!-- SEKSYEN SENARAI PEGAWAI -->
@@ -171,8 +171,8 @@
             <td class="suk-cell" id="out-tarikh-bertugas" style="width: 72%;">19.09.2026</td>
           </tr>
           <tr>
-            <td class="suk-cell" style="vertical-align: top; height: 60px;">Butiran Tugasan</td>
-            <td class="suk-cell" id="out-butiran-tugasan" style="vertical-align: top;">Arahan Kerja Lebih Masa Bagi Bengkel KPI dan Rakaman SeaGames di Zenith Hotel Cameron Highlands</td>
+            <td class="suk-cell" style="width: 28%; vertical-align: top;">Butiran Tugasan</td>
+            <td class="suk-cell" id="out-butiran-tugasan" style="width: 72%; vertical-align: top; min-height: 80px;">Arahan Kerja Lebih Masa Bagi Bengkel KPI dan Rakaman SeaGames di Zenith Hotel Cameron Highlands</td>
           </tr>
         </table>
 
@@ -190,54 +190,46 @@
           </tr>
         </table>
 
-        <!-- SEKSYEN PEGAWAI MEMBERI ARAHAN (KETINGGIAN PETAK DIKUNCI LAPANG: 130px) -->
+        <!-- SEKSYEN PEGAWAI MEMBERI ARAHAN -->
         <table class="suk-table">
           <tr>
             <td class="suk-header-cell">BUTIRAN PEGAWAI YANG MEMBERI ARAHAN</td>
           </tr>
           <tr>
-            <td class="suk-cell" style="height: 130px; display: flex; flex-direction: column; justify-content: space-between;">
-              <div>
-                <div>Tandatangan dan</div>
-                <div>Cop Nama & Jawatan :</div>
-              </div>
+            <td class="suk-cell" style="padding-top: 12px; padding-bottom: 12px;">
+              <div style="margin-bottom: 8px;">Tandatangan dan</div>
+              <div style="margin-bottom: 60px;">Cop Nama & Jawatan :</div>
               <div>Tarikh &nbsp;&nbsp;&nbsp;&nbsp;:</div>
             </td>
           </tr>
         </table>
 
-        <!-- SEKSYEN PEGAWAI MENERIMA ARAHAN (KETINGGIAN PETAK DIKUNCI LAPANG: 160px - BESAR BERSAMA GAP) -->
+        <!-- SEKSYEN PEGAWAI MENERIMA ARAHAN -->
         <table class="suk-table">
           <tr>
             <td class="suk-header-cell">BUTIRAN PEGAWAI YANG MENERIMA ARAHAN</td>
           </tr>
           <tr>
-            <td class="suk-cell" style="height: 160px; display: flex; flex-direction: column; justify-content: space-between;">
-              <div>
-                <div style="margin-bottom: 12px;">Saya telah melaksanakan tugas yang diarahkan di atas pada tarikh dan masa seperti berikut :</div>
-                <div style="margin-bottom: 4px;">Tarikh &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:<span id="out-tarikh-terima">19.09.2026</span></div>
-                <div>Tempoh Masa : <span id="out-tempoh-masa">07.30 Pagi hingga 11.30 Pagi</span></div>
-              </div>
-              <div>
-                <div>Tandatangan dan</div>
-                <div>Cop Nama & Jawatan :</div>
-              </div>
+            <td class="suk-cell" style="padding-top: 12px; padding-bottom: 12px;">
+              <div style="margin-bottom: 25px;">Saya telah melaksanakan tugas yang diarahkan di atas pada tarikh dan masa seperti berikut :</div>
+              <div style="margin-bottom: 6px;">Tarikh &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:<span id="out-tarikh-terima">19.09.2026</span></div>
+              <div style="margin-bottom: 35px;">Tempoh Masa : <span id="out-tempoh-masa">07.30 Pagi hingga 11.30 Pagi</span></div>
+              <div style="margin-bottom: 6px;">Tandatangan dan</div>
+              <div style="margin-bottom: 40px;">Cop Nama & Jawatan :</div>
             </td>
           </tr>
         </table>
 
-        <!-- SEKSYEN PENGESAHAN (KETINGGIAN PETAK DIKUNCI LAPANG: 150px) -->
+        <!-- SEKSYEN PENGESAHAN -->
         <table class="suk-table">
           <tr>
             <td class="suk-header-cell">PENGESAHAN PEGAWAI YANG MEMBERI ARAHAN</td>
           </tr>
           <tr>
-            <td class="suk-cell" style="height: 150px; display: flex; flex-direction: column; justify-content: space-between;">
-              <div>
-                <div style="margin-bottom: 12px;">Disahkan tugas tersebut telah disempurnakan pada tarikh dan tempoh masa yang dinyatakan :</div>
-                <div>Tandatangan dan</div>
-                <div>Cop Nama & Jawatan :</div>
-              </div>
+            <td class="suk-cell" style="padding-top: 12px; padding-bottom: 12px;">
+              <div style="margin-bottom: 25px;">Disahkan tugas tersebut telah disempurnakan pada tarikh dan tempoh masa yang dinyatakan :</div>
+              <div style="margin-bottom: 6px;">Tandatangan dan</div>
+              <div style="margin-bottom: 50px;">Cop Nama & Jawatan :</div>
               <div>Tarikh &nbsp;&nbsp;&nbsp;&nbsp;:</div>
             </td>
           </tr>
