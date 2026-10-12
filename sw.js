@@ -1,4 +1,4 @@
-const CACHE_NAME = 'arahan-kerja-v2';
+const CACHE_NAME = 'arahan-kerja-v3';
 const assets = [
   './',
   './index.html',
