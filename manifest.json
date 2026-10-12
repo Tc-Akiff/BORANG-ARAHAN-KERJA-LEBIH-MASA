@@ -1,6 +1,7 @@
 {
   "name": "Borang Arahan Kerja Lebih Masa SUK Penang",
   "short_name": "ArahanKerja",
+  "description": "Sistem Borang Arahan Kerja Lebih Masa SUK Penang",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
@@ -9,13 +10,13 @@
   "orientation": "portrait",
   "icons": [
     {
-      "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Coat_of_arms_of_Penang.svg/192px-Coat_of_arms_of_Penang.svg.png",
+      "src": "./jata_penang_new.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Coat_of_arms_of_Penang.svg/512px-Coat_of_arms_of_Penang.svg.png",
+      "src": "./jata_penang_new.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
