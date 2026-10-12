@@ -40,7 +40,7 @@
     .pegawai-input-row { display: flex; gap: 0.4rem; align-items: center; margin-bottom: 0.5rem; }
     .btn-add-pegawai { background-color: #2563eb; color: white; border: none; padding: 0.4rem 0.8rem; font-weight: bold; border-radius: 4px; cursor: pointer; font-size: 0.8rem; width: 100%; margin-top: 0.2rem; }
     .btn-add-pegawai:hover { background-color: #1d4ed8; }
-    .btn-del-pegawai { background-color: #dc2626; color: white; border: none; padding: 0.4rem 0.6rem; font-weight: bold; border-radius: 4px; cursor: pointer; font-size: 0.75rem; }
+    .btn-del-pegawai { background-color: #dc2626; color: white; border: none; padding: 0.4rem 0.6rem; font-weight: bold; border-radius: 4px; cursor: pointer; font-size: 0.75rem; min-width: 28px; }
 
     /* SEBELAH KANAN: LIVE PREVIEW */
     .preview-section { width: 62%; background: #525659; padding: 2rem 1.5rem; overflow-y: auto; display: flex; justify-content: center; align-items: flex-start; }
@@ -48,7 +48,7 @@
     /* DOKUMEN STANDARD A4 */
     .page-a4 { background: white; width: 210mm; min-height: 297mm; padding: 15mm 20mm; box-shadow: 0 4px 10px rgba(0,0,0,0.3); font-size: 13px; color: #000; line-height: 1.35; border-radius: 2px; box-sizing: border-box; position: relative; }
 
-    /* STYLES KHAS JATA PENANG (CENTERED) */
+    /* STYLES KHAS JATA PENANG */
     .header-logo-container { text-align: center; margin-bottom: 0.4rem; width: 100%; display: flex; justify-content: center; align-items: center; }
     .header-logo-container img { width: 75px; height: auto; display: block; margin: 0 auto; }
     .doc-main-title { text-align: center; font-weight: bold; font-size: 13px; text-transform: uppercase; margin-bottom: 0.8rem; }
@@ -239,13 +239,37 @@
       pegawaiList.forEach((nama, idx) => {
         const div = document.createElement('div');
         div.className = 'pegawai-input-row';
-        div.innerHTML = `
-          <div style="flex: 1;">
-            <label style="font-size: 0.75rem; font-weight: bold; color: #475569;">Pegawai ${idx + 1}</label>
-            <input type="text" class="form-control" value="${nama}" placeholder="Nama Pegawai" oninput="updatePegawai(${idx}, this.value)">
-          </div>
-          ${pegawaiList.length > 1 ? `<button class="btn-del-pegawai" style="margin-top: 1rem;" onclick="removePegawaiRow(\${idx})">X</button>` : ''}
-        `;
+
+        const wrapper = document.createElement('div');
+        wrapper.style.flex = '1';
+
+        const label = document.createElement('label');
+        label.style.fontSize = '0.75rem';
+        label.style.fontWeight = 'bold';
+        label.style.color = '#475569';
+        label.innerText = `Pegawai ${idx + 1}`;
+
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.className = 'form-control';
+        input.value = nama;
+        input.placeholder = 'Nama Pegawai';
+        input.oninput = (e) => updatePegawai(idx, e.target.value);
+
+        wrapper.appendChild(label);
+        wrapper.appendChild(input);
+        div.appendChild(wrapper);
+
+        if (pegawaiList.length > 1) {
+          const btnDel = document.createElement('button');
+          btnDel.type = 'button';
+          btnDel.className = 'btn-del-pegawai';
+          btnDel.style.marginTop = '1rem';
+          btnDel.innerText = 'X';
+          btnDel.onclick = () => removePegawaiRow(idx);
+          div.appendChild(btnDel);
+        }
+
         container.appendChild(div);
       });
     }
