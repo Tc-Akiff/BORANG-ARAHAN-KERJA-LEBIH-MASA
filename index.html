@@ -37,10 +37,11 @@
     .section-title { font-size: 0.85rem; font-weight: bold; background: #cbd5e1; padding: 0.3rem 0.5rem; margin: 1rem 0 0.6rem 0; color: #0f172a; border-left: 4px solid #1e293b; }
 
     /* DINAMIK PEGAWAI INPUT */
-    .pegawai-input-row { display: flex; gap: 0.4rem; align-items: center; margin-bottom: 0.5rem; }
-    .btn-add-pegawai { background-color: #2563eb; color: white; border: none; padding: 0.4rem 0.8rem; font-weight: bold; border-radius: 4px; cursor: pointer; font-size: 0.8rem; width: 100%; margin-top: 0.2rem; }
+    .pegawai-input-row { display: flex; gap: 0.4rem; align-items: flex-end; margin-bottom: 0.5rem; }
+    .btn-add-pegawai { background-color: #2563eb; color: white; border: none; padding: 0.5rem 0.8rem; font-weight: bold; border-radius: 4px; cursor: pointer; font-size: 0.8rem; width: 100%; margin-top: 0.4rem; }
     .btn-add-pegawai:hover { background-color: #1d4ed8; }
-    .btn-del-pegawai { background-color: #dc2626; color: white; border: none; padding: 0.4rem 0.6rem; font-weight: bold; border-radius: 4px; cursor: pointer; font-size: 0.75rem; min-width: 28px; }
+    .btn-del-pegawai { background-color: #dc2626; color: white; border: none; padding: 0.4rem 0.6rem; font-weight: bold; border-radius: 4px; cursor: pointer; font-size: 0.8rem; height: 31px; }
+    .btn-del-pegawai:hover { background-color: #b91c1c; }
 
     /* SEBELAH KANAN: LIVE PREVIEW */
     .preview-section { width: 62%; background: #525659; padding: 2rem 1.5rem; overflow-y: auto; display: flex; justify-content: center; align-items: flex-start; }
@@ -92,13 +93,13 @@
   <!-- HEADER APPLIKASI -->
   <header>
     <h1>Borang Arahan Kerja Lebih Masa - SUK Penang</h1>
-    <button class="btn-pdf" onclick="window.print()">📄 Muat Turun / Eksport PDF</button>
+    <button class="btn-pdf" type="button" onclick="window.print()">📄 Muat Turun / Eksport PDF</button>
   </header>
 
   <!-- TAB TOGGLE UNTUK MOBILE -->
   <div class="mobile-tabs">
-    <button class="tab-btn active" id="tab-form" onclick="switchTab('form')">Isi Data</button>
-    <button class="tab-btn" id="tab-preview" onclick="switchTab('preview')">Pratonton PDF</button>
+    <button class="tab-btn active" id="tab-form" type="button" onclick="switchTab('form')">Isi Data</button>
+    <button class="tab-btn" id="tab-preview" type="button" onclick="switchTab('preview')">Pratonton PDF</button>
   </div>
 
   <div class="app-container">
@@ -108,26 +109,26 @@
       
       <div class="section-title">BUTIRAN ARAHAN KERJA LEBIH MASA</div>
       <div class="form-group">
-        <label>Tarikh Bertugas</label>
+        <label for="in-tarikh-bertugas">Tarikh Bertugas</label>
         <input type="text" id="in-tarikh-bertugas" class="form-control" value="17.09.2026" oninput="updatePreview()">
       </div>
       <div class="form-group">
-        <label>Butiran Tugasan</label>
+        <label for="in-butiran-tugasan">Butiran Tugasan</label>
         <textarea id="in-butiran-tugasan" class="form-control" rows="3" oninput="updatePreview()">Arahan Kerja Lebih Masa Bagi Bengkel KPI dan Rakaman SeaGames di Zenith Hotel Cameron Highlands</textarea>
       </div>
 
       <!-- SEKSYEN SENARAI PEGAWAI -->
       <div class="section-title">SENARAI NAMA PEGAWAI DIARAHKAN</div>
       <div id="pegawai-input-container"></div>
-      <button class="btn-add-pegawai" onclick="addPegawaiRow()">+ Tambah Pegawai</button>
+      <button class="btn-add-pegawai" type="button" onclick="addPegawaiRow()">+ Tambah Pegawai</button>
 
       <div class="section-title">BUTIRAN PEGAWAI MENERIMA ARAHAN</div>
       <div class="form-group">
-        <label>Tarikh Pelaksanaan</label>
+        <label for="in-tarikh-terima">Tarikh Pelaksanaan</label>
         <input type="text" id="in-tarikh-terima" class="form-control" value="17.09.2026" oninput="updatePreview()">
       </div>
       <div class="form-group">
-        <label>Tempoh Masa</label>
+        <label for="in-tempoh-masa">Tempoh Masa</label>
         <input type="text" id="in-tempoh-masa" class="form-control" value="04.30 Petang hingga 10.00 Malam" oninput="updatePreview()">
       </div>
 
@@ -236,41 +237,35 @@
     function renderPegawaiInputs() {
       const container = document.getElementById('pegawai-input-container');
       container.innerHTML = '';
+
       pegawaiList.forEach((nama, idx) => {
         const div = document.createElement('div');
         div.className = 'pegawai-input-row';
 
-        const wrapper = document.createElement('div');
-        wrapper.style.flex = '1';
-
-        const label = document.createElement('label');
-        label.style.fontSize = '0.75rem';
-        label.style.fontWeight = 'bold';
-        label.style.color = '#475569';
-        label.innerText = `Pegawai ${idx + 1}`;
-
-        const input = document.createElement('input');
-        input.type = 'text';
-        input.className = 'form-control';
-        input.value = nama;
-        input.placeholder = 'Nama Pegawai';
-        input.oninput = (e) => updatePegawai(idx, e.target.value);
-
-        wrapper.appendChild(label);
-        wrapper.appendChild(input);
-        div.appendChild(wrapper);
+        let htmlContent = `
+          <div style="flex: 1;">
+            <label style="font-size: 0.75rem; font-weight: bold; color: #475569;">Pegawai ${idx + 1}</label>
+            <input type="text" class="form-control pegawai-field" data-index="${idx}" value="${nama.replace(/"/g, '&quot;')}" placeholder="Nama Pegawai">
+          </div>
+        `;
 
         if (pegawaiList.length > 1) {
-          const btnDel = document.createElement('button');
-          btnDel.type = 'button';
-          btnDel.className = 'btn-del-pegawai';
-          btnDel.style.marginTop = '1rem';
-          btnDel.innerText = 'X';
-          btnDel.onclick = () => removePegawaiRow(idx);
-          div.appendChild(btnDel);
+          htmlContent += `
+            <button type="button" class="btn-del-pegawai" onclick="removePegawaiRow(${idx})">X</button>
+          `;
         }
 
+        div.innerHTML = htmlContent;
         container.appendChild(div);
+      });
+
+      // BIND INPUT EVENTS WITHOUT RE-RENDERING HTML
+      document.querySelectorAll('.pegawai-field').forEach(input => {
+        input.addEventListener('input', (e) => {
+          const index = parseInt(e.target.getAttribute('data-index'));
+          pegawaiList[index] = e.target.value;
+          updatePreview();
+        });
       });
     }
 
@@ -286,11 +281,6 @@
         renderPegawaiInputs();
         updatePreview();
       }
-    }
-
-    function updatePegawai(idx, value) {
-      pegawaiList[idx] = value;
-      updatePreview();
     }
 
     function updatePreview() {
