@@ -76,12 +76,12 @@
 
     /* PRINT STYLES */
     @media print {
-      @page { size: A4 portrait; margin: 10mm; }
+      @page { size: A4 portrait; margin: 0; }
       header, .mobile-tabs, .form-section { display: none !important; }
       body { background: white; overflow: visible; height: auto; }
       .app-container { display: block; overflow: visible; }
       .preview-section { width: 100%; padding: 0; background: white; display: block; overflow: visible; }
-      .page-a4 { box-shadow: none; border: none; padding: 0; width: 100%; min-height: auto; }
+      .page-a4 { box-shadow: none; border: none; padding: 15mm 20mm; width: 100%; min-height: auto; }
       .suk-table { page-break-inside: avoid; }
       .header-logo-container img { width: 75px !important; }
     }
@@ -137,9 +137,7 @@
     <div class="preview-section" id="panel-preview">
       <div class="page-a4">
         
-        <div style="text-align: center; font-size: 11px; margin-bottom: 2px;">Borang_Arahan</div>
-        
-        <!-- LOGO JATA PENANG BAHARU (CENTERED & EMBEDDED) -->
+        <!-- LOGO JATA PENANG BAHARU -->
         <div class="header-logo-container">
           <img src="jata_penang_new.png" alt="Jata Penang" id="out-logo">
         </div>
