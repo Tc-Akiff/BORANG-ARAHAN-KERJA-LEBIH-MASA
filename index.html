@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Borang Arahan Kerja Lebih Masa - SUK Penang</title>
   
-  <!-- Manifest Link -->
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#1e293b">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -49,9 +48,9 @@
     /* DOKUMEN STANDARD A4 */
     .page-a4 { background: white; width: 210mm; min-height: 297mm; padding: 15mm 20mm; box-shadow: 0 4px 10px rgba(0,0,0,0.3); font-size: 13px; color: #000; line-height: 1.35; border-radius: 2px; box-sizing: border-box; position: relative; }
 
-    /* STYLES KHAS BORANG SUK PENANG */
-    .header-logo-container { text-align: center; margin-bottom: 0.4rem; }
-    .header-logo-container img { width: 52px; height: auto; }
+    /* STYLES KHAS JATA PENANG (CENTERED) */
+    .header-logo-container { text-align: center; margin-bottom: 0.4rem; width: 100%; display: flex; justify-content: center; align-items: center; }
+    .header-logo-container img { width: 75px; height: auto; display: block; margin: 0 auto; }
     .doc-main-title { text-align: center; font-weight: bold; font-size: 13px; text-transform: uppercase; margin-bottom: 0.8rem; }
 
     /* JADUAL & KOTAK DOKUMEN */
@@ -84,6 +83,7 @@
       .preview-section { width: 100%; padding: 0; background: white; display: block; overflow: visible; }
       .page-a4 { box-shadow: none; border: none; padding: 0; width: 100%; min-height: auto; }
       .suk-table { page-break-inside: avoid; }
+      .header-logo-container img { width: 75px !important; }
     }
   </style>
 </head>
@@ -139,9 +139,9 @@
         
         <div style="text-align: center; font-size: 11px; margin-bottom: 2px;">Borang_Arahan</div>
         
-        <!-- LOGO SUK PENANG -->
+        <!-- LOGO JATA PENANG BAHARU (CENTERED & EMBEDDED) -->
         <div class="header-logo-container">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/1/1a/Coat_of_arms_of_Penang.svg" alt="Coat of Arms Penang">
+          <img src="jata_penang_new.png" alt="Jata Penang" id="out-logo">
         </div>
 
         <!-- TAJUK UTAMA -->
@@ -306,7 +306,6 @@
       }
     }
 
-    // DAFTAR SERVICE WORKER PWA
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('sw.js')
