@@ -18,6 +18,7 @@
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: Arial, Helvetica, sans-serif; }
     body { background-color: #e5e7eb; height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
 
+    /* HEADER APP */
     header { background-color: #1e293b; color: white; padding: 0.6rem 1rem; display: flex; justify-content: space-between; align-items: center; z-index: 10; flex-shrink: 0; }
     header h1 { font-size: 1rem; font-weight: bold; }
     .header-btns { display: flex; gap: 0.5rem; align-items: center; }
@@ -28,41 +29,52 @@
     .btn-install { background-color: #2563eb; color: white; border: none; padding: 0.5rem 0.8rem; font-weight: bold; border-radius: 4px; cursor: pointer; font-size: 0.85rem; display: none; }
     .btn-install:hover { background-color: #1d4ed8; }
 
+    /* TAB TOGGLE MOBILE */
     .mobile-tabs { display: none; background: #ffffff; border-bottom: 1px solid #ccc; flex-shrink: 0; }
     .tab-btn { flex: 1; padding: 0.6rem; text-align: center; background: none; border: none; font-weight: bold; color: #666; border-bottom: 3px solid transparent; cursor: pointer; }
     .tab-btn.active { color: #1e293b; border-bottom-color: #1e293b; }
 
+    /* LAYOUT CONTAINER */
     .app-container { display: flex; flex: 1; overflow: hidden; }
 
+    /* SEBELAH KIRI: BORANG INPUT */
     .form-section { width: 38%; background: #ffffff; padding: 1.2rem; overflow-y: auto; border-right: 2px solid #cbd5e1; flex-shrink: 0; }
     .form-group { margin-bottom: 0.8rem; }
     .form-group label { display: block; font-size: 0.8rem; font-weight: bold; color: #334155; margin-bottom: 0.2rem; }
     .form-control { width: 100%; padding: 0.4rem 0.5rem; border: 1px solid #94a3b8; border-radius: 4px; font-size: 0.85rem; }
     .section-title { font-size: 0.85rem; font-weight: bold; background: #cbd5e1; padding: 0.3rem 0.5rem; margin: 1rem 0 0.6rem 0; color: #0f172a; border-left: 4px solid #1e293b; }
 
+    /* DINAMIK PEGAWAI INPUT */
     .pegawai-input-row { display: flex; gap: 0.4rem; align-items: flex-end; margin-bottom: 0.5rem; }
     .btn-add-pegawai { background-color: #2563eb; color: white; border: none; padding: 0.5rem 0.8rem; font-weight: bold; border-radius: 4px; cursor: pointer; font-size: 0.8rem; width: 100%; margin-top: 0.4rem; }
     .btn-add-pegawai:hover { background-color: #1d4ed8; }
     .btn-del-pegawai { background-color: #dc2626; color: white; border: none; padding: 0.4rem 0.6rem; font-weight: bold; border-radius: 4px; cursor: pointer; font-size: 0.8rem; height: 31px; }
     .btn-del-pegawai:hover { background-color: #b91c1c; }
 
+    /* SEBELAH KANAN: LIVE PREVIEW */
     .preview-section { width: 62%; background: #525659; padding: 2rem 1.5rem; overflow-y: auto; display: flex; justify-content: center; align-items: flex-start; }
     
-    .page-a4 { background: white; width: 210mm; min-height: 297mm; padding: 15mm 20mm; box-shadow: 0 4px 10px rgba(0,0,0,0.3); font-size: 13px; color: #000; line-height: 1.35; border-radius: 2px; box-sizing: border-box; position: relative; }
+    /* DOKUMEN STANDARD A4 (FONT ARIAL 11pt FIX) */
+    .page-a4 { background: white; width: 210mm; min-height: 297mm; padding: 15mm 20mm; box-shadow: 0 4px 10px rgba(0,0,0,0.3); font-family: Arial, sans-serif; font-size: 11pt; color: #000; line-height: 1.35; border-radius: 2px; box-sizing: border-box; position: relative; }
 
+    /* STYLES KHAS JATA PENANG */
     .header-logo-container { text-align: center; margin-bottom: 0.4rem; width: 100%; display: flex; justify-content: center; align-items: center; }
     .header-logo-container img { width: 75px; height: auto; display: block; margin: 0 auto; }
-    .doc-main-title { text-align: center; font-weight: bold; font-size: 13px; text-transform: uppercase; margin-bottom: 0.8rem; }
+    .doc-main-title { text-align: center; font-weight: bold; font-size: 11pt; font-family: Arial, sans-serif; text-transform: uppercase; margin-bottom: 0.8rem; }
 
+    /* JADUAL & KOTAK DOKUMEN - FONT ARIAL SIZE 11pt */
     .suk-table { width: 100%; border-collapse: collapse; border: 1.5px solid #000; margin-bottom: -1.5px; page-break-inside: avoid; }
-    .suk-header-cell { background-color: #bfbfbf; font-weight: bold; text-transform: uppercase; padding: 4px 6px; border: 1.5px solid #000; font-size: 12px; }
-    .suk-cell { border: 1px solid #000; padding: 5px 7px; vertical-align: top; font-size: 13px; }
+    
+    /* BACKGROUND KELABU KETARA MENGIKUT DOKUMEN RASMI */
+    .suk-header-cell { background-color: #b3b3b3 !important; font-weight: bold; font-family: Arial, sans-serif; text-transform: uppercase; padding: 4px 6px; border: 1.5px solid #000; font-size: 11pt; color: #000; }
+    .suk-cell { border: 1px solid #000; padding: 5px 7px; vertical-align: top; font-size: 11pt; font-family: Arial, sans-serif; }
     
     .pegawai-list { margin-left: 0; list-style: none; padding-left: 0; }
-    .pegawai-list li { margin-bottom: 3px; font-size: 13px; word-break: break-word; }
+    .pegawai-list li { margin-bottom: 3px; font-size: 11pt; font-family: Arial, sans-serif; word-break: break-word; }
 
     .space-signature { height: 60px; }
 
+    /* RESPONSIVE DESIGN FOR MOBILE & PWA */
     @media (max-width: 900px) {
       body { overflow: auto; }
       .mobile-tabs { display: flex; }
@@ -73,6 +85,7 @@
       .form-section.hidden, .preview-section.hidden { display: none; }
     }
 
+    /* PRINT STYLES */
     @media print {
       @page { size: A4 portrait; margin: 0; }
       header, .mobile-tabs, .form-section { display: none !important; }
@@ -81,12 +94,14 @@
       .preview-section { width: 100%; padding: 0; background: white; display: block; overflow: visible; }
       .page-a4 { box-shadow: none; border: none; padding: 15mm 20mm; width: 100%; min-height: auto; }
       .suk-table { page-break-inside: avoid; }
+      .suk-header-cell { background-color: #b3b3b3 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
       .header-logo-container img { width: 75px !important; }
     }
   </style>
 </head>
 <body>
 
+  <!-- HEADER APPLIKASI -->
   <header>
     <h1>Arahan Kerja SUK Penang</h1>
     <div class="header-btns">
@@ -95,6 +110,7 @@
     </div>
   </header>
 
+  <!-- TAB TOGGLE UNTUK MOBILE -->
   <div class="mobile-tabs">
     <button class="tab-btn active" id="tab-form" type="button" onclick="switchTab('form')">Isi Data</button>
     <button class="tab-btn" id="tab-preview" type="button" onclick="switchTab('preview')">Pratonton PDF</button>
@@ -102,18 +118,20 @@
 
   <div class="app-container">
 
+    <!-- SEBELAH KIRI: BORANG INPUT -->
     <div class="form-section" id="panel-form">
       
       <div class="section-title">BUTIRAN ARAHAN KERJA LEBIH MASA</div>
       <div class="form-group">
         <label for="in-tarikh-bertugas">Tarikh Bertugas</label>
-        <input type="text" id="in-tarikh-bertugas" class="form-control" value="17.09.2026" oninput="updatePreview()">
+        <input type="text" id="in-tarikh-bertugas" class="form-control" value="19.09.2026" oninput="updatePreview()">
       </div>
       <div class="form-group">
         <label for="in-butiran-tugasan">Butiran Tugasan</label>
         <textarea id="in-butiran-tugasan" class="form-control" rows="3" oninput="updatePreview()">Arahan Kerja Lebih Masa Bagi Bengkel KPI dan Rakaman SeaGames di Zenith Hotel Cameron Highlands</textarea>
       </div>
 
+      <!-- SEKSYEN SENARAI PEGAWAI -->
       <div class="section-title">SENARAI NAMA PEGAWAI DIARAHKAN</div>
       <div id="pegawai-input-container"></div>
       <button class="btn-add-pegawai" type="button" onclick="addPegawaiRow()">+ Tambah Pegawai</button>
@@ -121,41 +139,46 @@
       <div class="section-title">BUTIRAN PEGAWAI MENERIMA ARAHAN</div>
       <div class="form-group">
         <label for="in-tarikh-terima">Tarikh Pelaksanaan</label>
-        <input type="text" id="in-tarikh-terima" class="form-control" value="17.09.2026" oninput="updatePreview()">
+        <input type="text" id="in-tarikh-terima" class="form-control" value="19.09.2026" oninput="updatePreview()">
       </div>
       <div class="form-group">
         <label for="in-tempoh-masa">Tempoh Masa</label>
-        <input type="text" id="in-tempoh-masa" class="form-control" value="04.30 Petang hingga 10.00 Malam" oninput="updatePreview()">
+        <input type="text" id="in-tempoh-masa" class="form-control" value="07.30 Pagi hingga 11.30 Pagi" oninput="updatePreview()">
       </div>
 
     </div>
 
+    <!-- SEBELAH KANAN: LIVE PREVIEW PDF -->
     <div class="preview-section" id="panel-preview">
       <div class="page-a4">
         
+        <!-- LOGO JATA PENANG -->
         <div class="header-logo-container">
           <img src="jata_penang_new.png" alt="Jata Penang" id="out-logo">
         </div>
 
+        <!-- TAJUK UTAMA -->
         <div class="doc-main-title">
           BORANG ARAHAN KERJA LEBIH MASA<br>
           PEJABAT SETIAUSAHA KERAJAAN NEGERI PULAU PINANG
         </div>
 
+        <!-- SEKSYEN 1 (KELABU) -->
         <table class="suk-table">
           <tr>
             <td class="suk-header-cell" colspan="2">BUTIRAN ARAHAN KERJA LEBIH MASA</td>
           </tr>
           <tr>
-            <td class="suk-cell" style="width: 25%;">Tarikh Bertugas</td>
-            <td class="suk-cell" id="out-tarikh-bertugas" style="width: 75%;">17.09.2026</td>
+            <td class="suk-cell" style="width: 28%;">Tarikh Bertugas</td>
+            <td class="suk-cell" id="out-tarikh-bertugas" style="width: 72%;">19.09.2026</td>
           </tr>
           <tr>
-            <td class="suk-cell" style="vertical-align: top;">Butiran Tugasan</td>
-            <td class="suk-cell" id="out-butiran-tugasan" style="vertical-align: top;">Arahan Kerja Lebih Masa Bagi Bengkel KPI dan Rakaman SeaGames di Zenith Hotel Cameron Highlands</td>
+            <td class="suk-cell" style="vertical-align: top; padding-top: 10px; padding-bottom: 25px;">Butiran Tugasan</td>
+            <td class="suk-cell" id="out-butiran-tugasan" style="vertical-align: top; padding-top: 10px; padding-bottom: 25px;">Arahan Kerja Lebih Masa Bagi Bengkel KPI dan Rakaman SeaGames di Zenith Hotel Cameron Highlands</td>
           </tr>
         </table>
 
+        <!-- SEKSYEN SENARAI NAMA -->
         <table class="suk-table">
           <tr>
             <td class="suk-cell">
@@ -169,47 +192,51 @@
           </tr>
         </table>
 
+        <!-- SEKSYEN 2 (PEGAWAI MEMBERI ARAHAN - KELABU) -->
         <table class="suk-table">
           <tr>
             <td class="suk-header-cell">BUTIRAN PEGAWAI YANG MEMBERI ARAHAN</td>
           </tr>
           <tr>
-            <td class="suk-cell">
-              <div>Tandatangan dan</div>
-              <div>Cop Nama & Jawatan :</div>
+            <td class="suk-cell" style="padding-top: 12px; padding-bottom: 12px;">
+              <div style="margin-bottom: 0.3rem;">Tandatangan dan</div>
+              <div style="margin-bottom: 1rem;">Cop Nama & Jawatan :</div>
               <div class="space-signature"></div>
-              <div>Tarikh &nbsp;&nbsp;&nbsp;&nbsp;:</div>
+              <div style="margin-top: 1rem;">Tarikh &nbsp;&nbsp;&nbsp;&nbsp;:</div>
             </td>
           </tr>
         </table>
 
+        <!-- SEKSYEN 3 (PEGAWAI MENERIMA ARAHAN - KELABU & GAP DISESUAIKAN) -->
         <table class="suk-table">
           <tr>
             <td class="suk-header-cell">BUTIRAN PEGAWAI YANG MENERIMA ARAHAN</td>
           </tr>
           <tr>
-            <td class="suk-cell">
-              <div style="margin-bottom: 0.2rem;">Saya telah melaksanakan tugas yang diarahkan di atas pada tarikh dan masa seperti berikut :</div>
-              <div style="margin-bottom: 0.1rem;">Tarikh &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:<span id="out-tarikh-terima">17.09.2026</span></div>
-              <div style="margin-bottom: 0.3rem;">Tempoh Masa : <span id="out-tempoh-masa">04.30 Petang hingga 10.00 Malam</span></div>
-              <div>Tandatangan dan</div>
+            <td class="suk-cell" style="padding-top: 14px; padding-bottom: 14px;">
+              <!-- GAP / SPACING ATAS BAWAH DITINGKATKAN -->
+              <div style="margin-bottom: 1.2rem;">Saya telah melaksanakan tugas yang diarahkan di atas pada tarikh dan masa seperti berikut :</div>
+              <div style="margin-bottom: 0.4rem;">Tarikh &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:<span id="out-tarikh-terima">19.09.2026</span></div>
+              <div style="margin-bottom: 1.5rem;">Tempoh Masa : <span id="out-tempoh-masa">07.30 Pagi hingga 11.30 Pagi</span></div>
+              <div style="margin-bottom: 0.3rem;">Tandatangan dan</div>
               <div>Cop Nama & Jawatan :</div>
               <div class="space-signature"></div>
             </td>
           </tr>
         </table>
 
+        <!-- SEKSYEN 4 (PENGESAHAN - KELABU) -->
         <table class="suk-table">
           <tr>
             <td class="suk-header-cell">PENGESAHAN PEGAWAI YANG MEMBERI ARAHAN</td>
           </tr>
           <tr>
-            <td class="suk-cell">
-              <div style="margin-bottom: 0.3rem;">Disahkan tugas tersebut telah disempurnakan pada tarikh dan tempoh masa yang dinyatakan :</div>
-              <div>Tandatangan dan</div>
-              <div>Cop Nama & Jawatan :</div>
+            <td class="suk-cell" style="padding-top: 14px; padding-bottom: 14px;">
+              <div style="margin-bottom: 1.2rem;">Disahkan tugas tersebut telah disempurnakan pada tarikh dan tempoh masa yang dinyatakan :</div>
+              <div style="margin-bottom: 0.3rem;">Tandatangan dan</div>
+              <div style="margin-bottom: 1rem;">Cop Nama & Jawatan :</div>
               <div class="space-signature"></div>
-              <div>Tarikh &nbsp;&nbsp;&nbsp;&nbsp;:</div>
+              <div style="margin-top: 1rem;">Tarikh &nbsp;&nbsp;&nbsp;&nbsp;:</div>
             </td>
           </tr>
         </table>
