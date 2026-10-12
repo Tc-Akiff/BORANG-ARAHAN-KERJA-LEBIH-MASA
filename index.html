@@ -29,7 +29,7 @@
     .btn-install { background-color: #2563eb; color: white; border: none; padding: 0.5rem 0.8rem; font-weight: bold; border-radius: 4px; cursor: pointer; font-size: 0.85rem; display: none; }
     .btn-install:hover { background-color: #1d4ed8; }
 
-    /* LAYOUT CONTAINER (DESKTOP FLEX SPLIT) */
+    /* LAYOUT CONTAINER */
     .app-container { display: flex; flex: 1; overflow: hidden; }
 
     /* SEBELAH KIRI: BORANG INPUT */
@@ -46,10 +46,10 @@
     .btn-del-pegawai { background-color: #dc2626; color: white; border: none; padding: 0.4rem 0.6rem; font-weight: bold; border-radius: 4px; cursor: pointer; font-size: 0.8rem; height: 31px; }
     .btn-del-pegawai:hover { background-color: #b91c1c; }
 
-    /* SEBELAH KANAN: LIVE PREVIEW (SOPAN PADA DESKTOP SITE MOBILE) */
+    /* SEBELAH KANAN: LIVE PREVIEW */
     .preview-section { width: 60%; background: #525659; padding: 1rem; overflow-y: auto; overflow-x: hidden; display: flex; justify-content: center; align-items: flex-start; }
     
-    /* DOKUMEN STANDARD A4 (FONT ARIAL 11pt FIX & MAX WIDTH CONTROL) */
+    /* DOKUMEN STANDARD A4 */
     .page-a4 { background: white; width: 100%; max-width: 210mm; min-height: 297mm; padding: 12mm 15mm; box-shadow: 0 4px 10px rgba(0,0,0,0.3); font-family: Arial, sans-serif; font-size: 11pt; color: #000; line-height: 1.35; border-radius: 2px; box-sizing: border-box; position: relative; margin: 0 auto; }
 
     /* STYLES KHAS JATA PENANG */
@@ -57,12 +57,16 @@
     .header-logo-container img { width: 70px; height: auto; display: block; margin: 0 auto; }
     .doc-main-title { text-align: center; font-weight: bold; font-size: 11pt; font-family: Arial, sans-serif; text-transform: uppercase; margin-bottom: 0.6rem; }
 
-    /* JADUAL & KOTAK DOKUMEN - FIXED TABLE LAYOUT & STRICT WORD WRAPPING */
+    /* JADUAL & KOTAK DOKUMEN */
     .suk-table { width: 100%; border-collapse: collapse; border: 1.5px solid #000; margin-bottom: -1.5px; page-break-inside: avoid; table-layout: fixed; }
     
     .suk-header-cell { background-color: #bfbfbf !important; font-weight: bold; font-family: Arial, sans-serif; text-transform: uppercase; padding: 4px 6px; border: 1.5px solid #000; font-size: 11pt; color: #000; }
     .suk-cell { border: 1px solid #000; padding: 6px 8px; vertical-align: top; font-size: 11pt; font-family: Arial, sans-serif; overflow-wrap: anywhere; word-break: break-all; word-wrap: break-word; white-space: pre-wrap; overflow: hidden; }
     
+    /* STYLE KHAS BUANG GARISAN TENAN (NO MIDDLE VERTICAL BORDER) */
+    .no-border-right { border-right: none !important; }
+    .no-border-left { border-left: none !important; }
+
     .pegawai-list { margin-left: 0; list-style: none; padding-left: 0; }
     .pegawai-list li { margin-bottom: 3px; font-size: 11pt; font-family: Arial, sans-serif; overflow-wrap: anywhere; word-break: break-all; }
 
@@ -138,18 +142,18 @@
           PEJABAT SETIAUSAHA KERAJAAN NEGERI PULAU PINANG
         </div>
 
-        <!-- SEKSYEN 1 -->
+        <!-- SEKSYEN 1 (GARISAN TENGAH DIPADAM) -->
         <table class="suk-table">
           <tr>
             <td class="suk-header-cell" colspan="2">BUTIRAN ARAHAN KERJA LEBIH MASA</td>
           </tr>
           <tr>
-            <td class="suk-cell" style="width: 28%;">Tarikh Bertugas</td>
-            <td class="suk-cell" id="out-tarikh-bertugas" style="width: 72%;">19.09.2026</td>
+            <td class="suk-cell no-border-right" style="width: 28%;">Tarikh Bertugas</td>
+            <td class="suk-cell no-border-left" id="out-tarikh-bertugas" style="width: 72%;">19.09.2026</td>
           </tr>
           <tr>
-            <td class="suk-cell" style="width: 28%; vertical-align: top;">Butiran Tugasan</td>
-            <td class="suk-cell" id="out-butiran-tugasan" style="width: 72%; vertical-align: top; min-height: 80px;">Arahan Kerja Lebih Masa Bagi Bengkel KPI dan Rakaman SeaGames di Zenith Hotel Cameron Highlands</td>
+            <td class="suk-cell no-border-right" style="width: 28%; vertical-align: top;">Butiran Tugasan</td>
+            <td class="suk-cell no-border-left" id="out-butiran-tugasan" style="width: 72%; vertical-align: top; min-height: 80px;">Arahan Kerja Lebih Masa Bagi Bengkel KPI dan Rakaman SeaGames di Zenith Hotel Cameron Highlands</td>
           </tr>
         </table>
 
